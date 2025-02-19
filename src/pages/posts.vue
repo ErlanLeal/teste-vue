@@ -29,7 +29,6 @@
       </v-card-actions>
     </v-card>
 
-    <!-- Lista de Posts -->
     <v-row>
       <v-col
         v-for="(post, index) in posts"
@@ -61,7 +60,6 @@
       </v-col>
     </v-row>
 
-    <!-- Diálogo de Edição do Post -->
     <v-dialog v-model="editDialog" max-width="600px">
       <v-card>
         <v-card-title>
@@ -114,7 +112,6 @@ export default {
         const response = await axios.get(
           'https://jsonplaceholder.typicode.com/posts'
         );
-        // Utiliza os 10 primeiros posts para exemplificar
         this.posts = response.data.slice(0, 10);
       } catch (error) {
         console.error('Erro ao buscar posts:', error);
@@ -122,11 +119,10 @@ export default {
     },
     addPost() {
       if (this.newPost.title.trim() && this.newPost.body.trim()) {
-        // Cria um novo post com um ID único (usando timestamp)
+
         const newPostObj = { ...this.newPost, id: Date.now() };
-        // Adiciona o novo post ao início da lista
+
         this.posts.unshift(newPostObj);
-        // Limpa os campos do formulário
         this.newPost.title = '';
         this.newPost.body = '';
       }
@@ -137,7 +133,6 @@ export default {
     openEditDialog(post, index) {
       this.editDialog = true;
       this.editIndex = index;
-      // Cria uma cópia do post para edição
       this.editedPost = { ...post };
     },
     closeEditDialog() {
@@ -147,7 +142,6 @@ export default {
     },
     saveEdit() {
       if (this.editedPost.title.trim() && this.editedPost.body.trim()) {
-        // Atualiza o post na lista
         this.$set(this.posts, this.editIndex, { ...this.editedPost });
         this.closeEditDialog();
       }
@@ -157,8 +151,9 @@ export default {
 </script>
 
 <style scoped>
-/* Estilizações adicionais para melhorar o visual */
+
 .v-card {
   margin-bottom: 20px;
 }
+
 </style>
